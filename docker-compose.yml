@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  # Backend: Python FastAPI
+  api:
+    build: 
+      context: ./sentinel-api
+      dockerfile: Dockerfile
+    container_name: sentinel-api-container
+    ports:
+      - "8000:8000"
+    # TÄRKEÄ: Sallii psutil-kirjaston nähdä isäntäkoneen oikean CPU-käytön
+    pid: "host" 
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+    environment:
+      - PROCFS_PATH=/host/proc
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped

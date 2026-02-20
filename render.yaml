@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: sentinel-api
+    env: docker
+    region: frankfurt
+    plan: free
+    dockerContext: .
+    dockerfilePath: ./sentinel-api/Dockerfile
+    healthCheckPath: /
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: "1"
